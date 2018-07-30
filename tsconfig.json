@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "module": "es6",
+        "target": "es2017",
+        "moduleResolution": "node",
+        "jsx": "react-native",
+        "outDir": "build",
+        "skipLibCheck": true,
+        "allowSyntheticDefaultImports": true,
+        "noImplicitAny": true,
+        "experimentalDecorators": true,
+        "preserveConstEnums": true,
+        "sourceMap": true,
+        "watch": true
+    },
+    "filesGlob": [
+        "src/**/*.ts",
+        "src/**/*.tsx"
+    ],
+    "exclude": [
+        "index.js",
+        "build",
+        "scripts.js",
+        "templates",
+        "node_modules",
+        "__tests__"
+    ]
+}
