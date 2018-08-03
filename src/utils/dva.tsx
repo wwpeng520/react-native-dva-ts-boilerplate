@@ -1,6 +1,8 @@
 import React from 'react';
 import { Provider, connect } from 'react-redux';
 let { create } = require('dva-core');
+import createLoading from 'dva-loading';
+
 export { connect };
 export interface Options {
   models: Model[];
@@ -12,6 +14,8 @@ export interface Options {
 
 export function dva(options: Options) {
   const app = create(options);
+  app.use(createLoading());
+
   // HMR workaround
   //   if (!global.registered)
   options.models.forEach((model: Model) => app.model(model));

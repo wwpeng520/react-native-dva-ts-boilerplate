@@ -1,12 +1,13 @@
 import React, { PureComponent } from 'react';
 import { BackHandler, Animated, Easing, Platform, StatusBar } from 'react-native';
 import {
-  createStackNavigator,
-  createBottomTabNavigator,
   NavigationActions,
   NavigationState,
   NavigationStateRoute,
   NavigationRoute,
+  NavigationScreenConfigProps,
+  createStackNavigator,
+  createBottomTabNavigator,
 } from 'react-navigation';
 import {
   reduxifyNavigator,
@@ -25,51 +26,55 @@ import Mine from './routes/mine';
 import Detail from './routes/detail';
 import Loading from './routes/loading';
 
-const HomeNavigator = createBottomTabNavigator({
-  [RouterName.Home]: { screen: Home },
-  [RouterName.Mine]: { screen: Mine },
-});
-
-HomeNavigator.navigationOptions = ({ navigation }: any) => {
-  const { routeName } = navigation.state.routes[navigation.state.index];
-
-  console.log('navigation.state: ', navigation.state);
-  return {
-    headerTitle: routeName,
-    // header: null,
-    headerStyle: {
-      // 设置标题栏的样式对象
-      backgroundColor: '#fff',
-      borderBottomWidth: 0,
-      elevation: 0,
-      height: 40,
-      // marginTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
-      shadowColor: 'transparent',
-      shadowRadius: 0,
+const HomeNavigator = createBottomTabNavigator(
+  {
+    [RouterName.Home]: { screen: Home },
+    [RouterName.Mine]: { screen: Mine },
+  },
+  {
+    tabBarOptions: {
+      activeTintColor: '#ff6600',
+      inactiveTintColor: '#929292',
     },
-    headerTitleStyle: {
-      // 设置返回标题(back title)的样式
-      alignSelf: 'center', // 安卓上顶部标题居中
-      fontSize: 16,
-      // color: '#fff',
-      color: '#333',
-      fontWeight: '400',
-      flexGrow: 1,
-      textAlign: 'center',
-    },
-    // headerBackTitle: null, // 跳转页面左侧返回箭头后面的文字
-    // headerTintColor: 'red', // 设置标题颜色
-    gesturesEnabled: true, // defaults to true on iOS, false on Android.
-  };
-};
+  },
+);
 
 const MainNavigator = createStackNavigator(
   {
     HomeNavigator: {
       screen: HomeNavigator,
-      // navigationOptions: {
-      //   header: null, // 顶部导航很多都会自己自定义，这里就为空
-      // },
+      navigationOptions: ({ navigation }: NavigationScreenConfigProps) => {
+        const { routeName } = navigation.state.routes[navigation.state.index];
+      
+        console.log('navigation.state: ', navigation.state);
+        return {
+          headerTitle: routeName,
+          // header: null,
+          headerStyle: {
+            // 设置标题栏的样式对象
+            backgroundColor: '#fff',
+            borderBottomWidth: 0,
+            elevation: 0,
+            height: 40,
+            // marginTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+            shadowColor: 'transparent',
+            shadowRadius: 0,
+          },
+          headerTitleStyle: {
+            // 设置返回标题(back title)的样式
+            alignSelf: 'center', // 安卓上顶部标题居中
+            fontSize: 16,
+            // color: '#fff',
+            color: '#333',
+            fontWeight: '400',
+            flexGrow: 1,
+            textAlign: 'center',
+          },
+          // headerBackTitle: null, // 跳转页面左侧返回箭头后面的文字
+          // headerTintColor: 'red', // 设置标题颜色
+          gesturesEnabled: true, // defaults to true on iOS, false on Android.
+        };
+      }
     },
     Detail: { screen: Detail },
   },
@@ -78,7 +83,7 @@ const MainNavigator = createStackNavigator(
   // },
   {
     // mode: "card", // 'card'默认效果；'modal'使屏幕从底部滑入,只适用于iOS
-    headerMode: 'float',
+    headerMode: 'screen',
     initialRouteName: 'HomeNavigator', // 初始化app默认路由
     // 设置所有页面的options，也可在每个页面的navigationOptions设置
     navigationOptions: {

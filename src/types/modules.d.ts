@@ -6,6 +6,11 @@
 
     Adding definitions
     ---------------------------------------------------------------------------
-*/ 
+*/
 
-declare module "react-native-simple-store"
+declare module 'react-native-simple-store';
+declare module 'dva-loading';
+declare module 'react-redux';
+declare module 'react-native-image-gallery';
+declare module 'react-native-simple-store';
+declare module 'react-native-scrollable-tab-view';
